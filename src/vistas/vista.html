@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juego Pokémon</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      color: #ff6f61;
+      margin: 20px 0;
+    }
+
+    section {
+      margin: 20px auto;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      max-width: 800px;
+    }
+
+    h2 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+      background-color: #ff6f61;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #ff5745;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 12px;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #ff6f61;
+      color: white;
+      font-weight: bold;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tbody tr:hover {
+      background-color: #ffe6e1;
+    }
+
+    #resultadoUsuario, #resultadoPokemon {
+      text-align: center;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Juego Pokémon</h1>
+
+  <!-- Registro de Usuario -->
+  <section>
+    <h2>Registrar Usuario</h2>
+    <form id="formUsuario">
+      <label for="cedula">Cédula:</label>
+      <input type="text" id="cedula" name="cedula" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" name="nombre" required>
+
+      <label for="edad">Edad:</label>
+      <input type="number" id="edad" name="edad" required>
+
+      <button type="submit">Registrar Usuario</button>
+    </form>
+    <div id="resultadoUsuario" style="display: none; color: red;"></div>
+  </section>
+
+  <!-- Registro de Pokémon -->
+  <section>
+    <h2>Registrar Pokémon</h2>
+    <form id="formPokemon">
+      <label for="nombrePokemon">Nombre del Pokémon:</label>
+      <input type="text" id="nombrePokemon" name="nombre" required>
+
+      <label for="tipo">Tipo:</label>
+      <input type="text" id="tipo" name="tipo" required>
+
+      <label for="poder">Poder:</label>
+      <input type="text" id="poder" name="poder" required>
+
+      <button type="submit">Registrar Pokémon</button>
+    </form>
+    <div id="resultadoPokemon" style="display: none; color: red;"></div>
+  </section>
+
+  <!-- Listado de Usuarios -->
+  <section>
+    <h2>Listado de Usuarios</h2>
+    <table id="tablaUsuarios">
+        <thead>
+            <tr>
+                <th>Cédula</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Edad</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Los usuarios registrados se añadirán dinámicamente aquí -->
+        </tbody>
+    </table>
+  </section>
+
+  <!-- Listado de Pokémon -->
+  <section>
+    <h2>Listado de Pokémon</h2>
+    <table id="tablaPokemon">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th>Poder</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Los Pokémon registrados se añadirán dinámicamente aquí -->
+        </tbody>
+    </table>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
