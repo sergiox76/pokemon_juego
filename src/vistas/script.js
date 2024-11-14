@@ -1,4 +1,4 @@
-const API_URL = 'http://3.139.70.125:3000/api'; // Cambia según tu configuración
+const API_URL = 'http://3.139.70.125:3000'; // Cambia según tu configuración
 
 // Registrar Usuario
 document.getElementById('formUsuario').addEventListener('submit', async (e) => {
