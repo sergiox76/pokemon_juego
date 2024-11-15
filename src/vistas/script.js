@@ -18,14 +18,15 @@ document.getElementById('formUsuario').addEventListener('submit', async (e) => {
       body: JSON.stringify(usuario),
     });
 
-    if (res.ok) {
-      alert('Usuario registrado con éxito');
-      // Llama a la función para listar usuarios
-      listarUsuarios();
-      document.getElementById('formUsuario').reset(); // Limpia el formulario
-    } else {
-      alert('Error al registrar usuario');
+    if (!res.ok) {
+      const error = await res.json();
+      alert(`Error al registrar usuario: ${error.mensaje}`);
+      return;
     }
+
+    alert('Usuario registrado con éxito');
+    listarUsuarios(); // Llama a la función para listar usuarios
+    document.getElementById('formUsuario').reset(); // Limpia el formulario
   } catch (error) {
     console.error('Error al registrar usuario:', error);
   }
