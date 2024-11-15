@@ -48,14 +48,15 @@ document.getElementById('formPokemon').addEventListener('submit', async (e) => {
       body: JSON.stringify(pokemon),
     });
 
-    if (res.ok) {
-      alert('Pokémon registrado con éxito');
-      // Llama a la función para listar pokémones
-      listarPokemon();
-      document.getElementById('formPokemon').reset(); // Limpia el formulario
-    } else {
-      alert('Error al registrar Pokémon');
+    if (!res.ok) {
+      const error = await res.json();
+      alert(`Error al registrar Pokémon: ${error.mensaje}`);
+      return;
     }
+
+    alert('Pokémon registrado con éxito');
+    listarPokemon(); // Llama a la función para listar pokémones
+    document.getElementById('formPokemon').reset(); // Limpia el formulario
   } catch (error) {
     console.error('Error al registrar Pokémon:', error);
   }
