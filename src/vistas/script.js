@@ -1,4 +1,4 @@
-const API_URL = 'http://3.139.70.125:3000'; 
+const API_URL = 'http://3.139.70.125:3000/api'; 
 
 
 document.getElementById('formUsuario').addEventListener('submit', async (e) => {
