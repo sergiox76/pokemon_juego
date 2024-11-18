@@ -1,6 +1,6 @@
-const API_URL = 'http://3.139.70.125:3000/'; // Cambia según tu configuración
+const API_URL = 'http://3.139.70.125:3000/'; 
 
-// Registrar Usuario
+
 document.getElementById('formUsuario').addEventListener('submit', async (e) => {
   e.preventDefault();
   const usuario = {
@@ -25,14 +25,14 @@ document.getElementById('formUsuario').addEventListener('submit', async (e) => {
     }
 
     alert('Usuario registrado con éxito');
-    listarUsuarios(); // Llama a la función para listar usuarios
-    document.getElementById('formUsuario').reset(); // Limpia el formulario
+    listarUsuarios();
+    document.getElementById('formUsuario').reset(); 
   } catch (error) {
     console.error('Error al registrar usuario:', error);
   }
 });
 
-// Registrar Pokémon
+
 document.getElementById('formPokemon').addEventListener('submit', async (e) => {
   e.preventDefault();
   const pokemon = {
@@ -55,20 +55,20 @@ document.getElementById('formPokemon').addEventListener('submit', async (e) => {
     }
 
     alert('Pokémon registrado con éxito');
-    listarPokemon(); // Llama a la función para listar pokémones
-    document.getElementById('formPokemon').reset(); // Limpia el formulario
+    listarPokemon(); 
+    document.getElementById('formPokemon').reset(); 
   } catch (error) {
     console.error('Error al registrar Pokémon:', error);
   }
 });
 
-// Listar Usuarios
+
 async function listarUsuarios() {
   try {
     const res = await fetch(`${API_URL}/usuarios/listarusuario`);
     const usuarios = await res.json();
     const tabla = document.getElementById('tablaUsuarios').querySelector('tbody');
-    tabla.innerHTML = ''; // Limpiar tabla antes de llenarla
+    tabla.innerHTML = ''; 
     usuarios.forEach((usuario) => {
       const fila = `
         <tr>
@@ -85,13 +85,13 @@ async function listarUsuarios() {
   }
 }
 
-// Listar Pokémon
+
 async function listarPokemon() {
   try {
     const res = await fetch(`${API_URL}/pokemon/listarpokemon`);
     const pokemones = await res.json();
     const tabla = document.getElementById('tablaPokemon').querySelector('tbody');
-    tabla.innerHTML = ''; // Limpiar tabla antes de llenarla
+    tabla.innerHTML = ''; 
     pokemones.forEach((pokemon) => {
       const fila = `
         <tr>
@@ -107,7 +107,7 @@ async function listarPokemon() {
   }
 }
 
-// Cargar listas al inicio
+
 listarUsuarios();
 listarPokemon();
 
