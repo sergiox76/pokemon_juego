@@ -9,7 +9,7 @@ document.getElementById('formUsuario').addEventListener('submit', async (e) => {
     nombre: document.getElementById('nombre').value,
     edad: document.getElementById('edad').value,
   };
-alert(usuario.cedula);
+
 
   try {
     const res = await fetch(`${API_URL}/usuarios/registrar`, {
