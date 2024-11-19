@@ -179,8 +179,41 @@
     </table>
   </section>
 
+  <!-- Capturar Pokémon -->
+  <section>
+    <h2>Capturar Pokémon</h2>
+    <button id="capturarPokemon">Capturar Pokémon</button>
+    <div id="capturaForm" style="display: none; margin-top: 20px;">
+      <form id="formCaptura">
+        <label for="pokemon">Nombre del Pokémon:</label>
+        <input type="text" id="pokemon" name="pokemon" required>
+
+        <label for="cedula">Cédula del capturador:</label>
+        <input type="text" id="cedulaCaptura" name="cedula" required>
+
+        <button type="submit">Capturar</button>
+        <button type="button" id="cancelarCaptura">Cancelar</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Listado de Capturas -->
+  <section>
+    <h2>Listado de Capturas</h2>
+    <table id="tablaCapturas">
+        <thead>
+            <tr>
+                <th>Nombre del Pokémon</th>
+                <th>Cédula del Capturador</th>
+                <th>Fecha de Captura</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Las capturas realizadas se añadirán dinámicamente aquí -->
+        </tbody>
+    </table>
+  </section>
+
   <script src="script.js"></script>
 </body>
 </html>
-
-
