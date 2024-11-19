@@ -3,6 +3,6 @@ const enrutador = express.Router();
 const pokemonControlador = require('../controladores/pokemonControlador');
 
 enrutador.post('/registrar', pokemonControlador.registrarPokemon);
-enrutador.get('/listarpokemon', pokemonControlador. listarPokemon);
+enrutador.get('/listarpokemon', pokemonControlador.listarPokemon);
 
 module.exports = enrutador;
