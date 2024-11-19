@@ -23,9 +23,4 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'usuario',
         timestamps: true
     });
-
-    Usuario.hasMany(models.PokemonCapturado, {
-        foreignKey: 'usuarioCedula',
-        as: 'Capturas',
-      });
 };
