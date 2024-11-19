@@ -16,6 +16,7 @@ const capturarPokemon = async (req, res) => {
 const listarCapturas = async (req, res) => {
   try {
     const capturas = await Capturado.findAll();
+    console.log('Capturas encontradas:', capturas); 
     res.status(200).json(capturas);
   } catch (error) {
     res.status(400).json({ mensaje: error.message });
