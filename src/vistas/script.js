@@ -148,14 +148,20 @@ async function listarPokemon() {
 async function listarCapturas() {
   try {
     const res = await fetch(`${API_URL}/capturados/listarcapturas`);
+    if (!res.ok) {
+      alert('Error al obtener las capturas');
+      return;
+    }
+
     const capturas = await res.json();
     const tabla = document.getElementById('tablaCapturas').querySelector('tbody');
     tabla.innerHTML = ''; 
+
     capturas.forEach((captura) => {
       const fila = `
         <tr>
           <td>${captura.pokemon}</td>
-          <td>${captura.usuarioCedula}</td>
+          <td>${captura.usuario}</td>
           <td>${new Date(captura.fechaCaptura).toLocaleString()}</td>
         </tr>
       `;
@@ -165,6 +171,7 @@ async function listarCapturas() {
     console.error('Error al listar capturas:', error);
   }
 }
+
 
 // Inicializar las listas
 listarUsuarios();
