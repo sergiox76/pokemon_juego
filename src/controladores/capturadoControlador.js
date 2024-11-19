@@ -1,25 +1,47 @@
-const { Capturado } = require('../baseDatos');
+const { PokemonCapturado, Pokemon, Usuario } = require('../baseDatos');
 
 const capturarPokemon = async (req, res) => {
   try {
-    const capturado = await Capturado.create(req.body);
-    const response = { 
-      ...capturado.dataValues, 
-      fechaCaptura: new Date() 
-    };
-    res.status(201).json({ mensaje: "Pokémon capturado exitosamente", resultado: response });
+    const capturado = await PokemonCapturado.create(req.body);
+    res.status(201).json({
+      mensaje: "Pokémon capturado exitosamente",
+      resultado: capturado,
+    });
   } catch (error) {
     res.status(400).json({ mensaje: error.message, resultado: null });
   }
 };
 
+
 const listarCapturas = async (req, res) => {
   try {
-    const capturas = await Capturado.findAll();
-    console.log('Capturas encontradas:', capturas); 
-    res.status(200).json(capturas);
+   
+    const capturas = await PokemonCapturado.findAll({
+      include: [
+        {
+          model: Pokemon,
+          as: 'Pokemon', 
+          attributes: ['nombre'], 
+        },
+        {
+          model: Usuario,
+          as: 'Usuario',
+          attributes: ['nombre'], 
+        },
+      ],
+    });
+
+    
+    const resultado = capturas.map((captura) => ({
+      id: captura.id,
+      pokemon: captura.Pokemon.nombre,
+      usuario: captura.Usuario.nombre,
+      fechaCaptura: captura.createdAt, 
+    }));
+
+    res.status(200).json(resultado);
   } catch (error) {
-    res.status(400).json({ mensaje: error.message });
+    res.status(400).json({ mensaje: error.message, resultado: null });
   }
 };
 

@@ -23,4 +23,16 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'pokemoncapturado',
     timestamps: true,
   });
+
+  PokemonCapturado.associate = (models) => {
+    PokemonCapturado.belongsTo(models.Pokemon, {
+      foreignKey: 'pokemonId',
+      as: 'Pokemon',
+    });
+
+    PokemonCapturado.belongsTo(models.Usuario, {
+      foreignKey: 'usuarioCedula',
+      as: 'Usuario',
+    });
+  };
 };

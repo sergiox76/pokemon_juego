@@ -22,4 +22,9 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'pokemon',
         timestamps: false
     });
+
+    Pokemon.hasMany(models.PokemonCapturado, {
+        foreignKey: 'pokemonId',
+        as: 'Capturas',
+      });
 };
