@@ -8,8 +8,8 @@ const capturarPokemon = async (req, res) => {
     res.status(400).json({ mensaje: error.message,resultado:null });
   }
 };
-//const Usuario = require('../modelos/usuario'); // Modelo de Usuario
-//const Pokemon = require('../modelos/pokemon'); // Modelo de Pokémon
+const Usuario = require('../modelos/usuario'); // Modelo de Usuario
+const Pokemon = require('../modelos/pokemon'); // Modelo de Pokémon
 
 // Función para listar todas las capturas
 const listarCapturas = async (req, res) => {
