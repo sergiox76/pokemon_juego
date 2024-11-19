@@ -144,7 +144,38 @@ async function listarPokemon() {
   }
 }
 
-// Listar capturas
+document.getElementById('formCaptura').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const captura = {
+    pokemonId: document.getElementById('pokemon').value, // ID del Pokémon
+    usuarioCedula: document.getElementById('cedulaCaptura').value, // Cédula del capturador
+  };
+
+  try {
+    const res = await fetch(`${API_URL}/capturados/capturar`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(captura),
+    });
+
+    if (!res.ok) {
+      const error = await res.json();
+      alert(`Error al capturar Pokémon: ${error.mensaje}`);
+      return;
+    }
+
+    const data = await res.json();
+    alert(data.mensaje); // Mostrar mensaje de éxito
+    listarCapturas(); // Actualizar la tabla de capturas
+    document.getElementById('formCaptura').reset(); // Limpiar el formulario
+  } catch (error) {
+    console.error('Error al capturar Pokémon:', error);
+    alert('Error al capturar Pokémon');
+  }
+});
+
+// Función para listar capturas
 async function listarCapturas() {
   try {
     const res = await fetch(`${API_URL}/capturados/listarcapturas`);
@@ -153,22 +184,25 @@ async function listarCapturas() {
       return;
     }
 
-    const capturas = await res.json();
+    const data = await res.json();
+    const capturas = data.capturado; // Acceder al campo "capturado" de la respuesta
+
     const tabla = document.getElementById('tablaCapturas').querySelector('tbody');
-    tabla.innerHTML = ''; 
+    tabla.innerHTML = ''; // Limpiar la tabla
 
     capturas.forEach((captura) => {
       const fila = `
         <tr>
-          <td>${captura.pokemon}</td>
-          <td>${captura.usuario}</td>
-          <td>${new Date(captura.fechaCaptura).toLocaleString()}</td>
+          <td>${captura.pokemonId}</td> <!-- ID del Pokémon -->
+          <td>${captura.usuarioCedula}</td> <!-- Cédula del usuario -->
+          <td>${new Date(captura.createdAt).toLocaleString()}</td> <!-- Fecha de captura -->
         </tr>
       `;
       tabla.innerHTML += fila;
     });
   } catch (error) {
     console.error('Error al listar capturas:', error);
+    alert('Error al obtener las capturas');
   }
 }
 
