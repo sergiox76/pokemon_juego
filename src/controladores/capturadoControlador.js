@@ -3,9 +3,13 @@ const { Capturado } = require('../baseDatos');
 const capturarPokemon = async (req, res) => {
   try {
     const capturado = await Capturado.create(req.body);
-    res.status(201).json({ mensaje: "Pokemon capturado",resultado:capturado });
+    const response = { 
+      ...capturado.dataValues, 
+      fechaCaptura: new Date() 
+    };
+    res.status(201).json({ mensaje: "Pokémon capturado exitosamente", resultado: response });
   } catch (error) {
-    res.status(400).json({ mensaje: error.message,resultado:null });
+    res.status(400).json({ mensaje: error.message, resultado: null });
   }
 };
 
@@ -14,11 +18,11 @@ const listarCapturas = async (req, res) => {
     const capturas = await Capturado.findAll();
     res.status(200).json(capturas);
   } catch (error) {
-    res.status(500).json({ mensaje: 'Error al listar capturas', error });
+    res.status(400).json({ mensaje: error.message });
   }
 };
 
 module.exports = {
-    capturarPokemon,
-    listarCapturas
+  capturarPokemon,
+  listarCapturas,
 };
