@@ -175,34 +175,27 @@ document.getElementById('formCaptura').addEventListener('submit', async (e) => {
   }
 });
 
-// Función para listar capturas
 async function listarCapturas() {
   try {
-    const res = await fetch(`${API_URL}/capturados/listarcapturas`);
-    if (!res.ok) {
-      alert('Error al obtener las capturas');
-      return;
-    }
+      const response = await fetch(`${API_URL}/captura/listar`);
+      const data = await response.json();
 
-    const data = await res.json();
-    const capturas = data.capturado; // Acceder al campo "capturado" de la respuesta
+      if (data.capturado) {  
+          const tablaCapturas = document.getElementById('tablaCapturas').getElementsByTagName('tbody')[0];
+          tablaCapturas.innerHTML = '';  // Limpiamos la tabla antes de mostrar los nuevos datos
 
-    const tabla = document.getElementById('tablaCapturas').querySelector('tbody');
-    tabla.innerHTML = ''; // Limpiar la tabla
-
-    capturas.forEach((captura) => {
-      const fila = `
-        <tr>
-          <td>${captura.pokemonId}</td> <!-- ID del Pokémon -->
-          <td>${captura.usuarioCedula}</td> <!-- Cédula del usuario -->
-          <td>${new Date(captura.createdAt).toLocaleString()}</td> <!-- Fecha de captura -->
-        </tr>
-      `;
-      tabla.innerHTML += fila;
-    });
+          // Añadir las filas de las capturas a la tabla
+          data.capturado.forEach(captura => {
+              const fila = tablaCapturas.insertRow();
+              fila.insertCell(0).textContent = `${captura.pokemonId}`;  // Usando pokemonId
+              fila.insertCell(1).textContent = `${captura.usuarioCedula}`;  // Usando usuarioCedula
+              fila.insertCell(2).textContent = captura.createdAt;  // Fecha de captura
+          });
+      } else {
+          console.log('No se encontraron capturas');
+      }
   } catch (error) {
-    console.error('Error al listar capturas:', error);
-    alert('Error al obtener las capturas');
+      console.error('Error al obtener las capturas:', error);
   }
 }
 
