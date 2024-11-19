@@ -1,4 +1,4 @@
-const { PokemonCapturado, Pokemon, Usuario } = require('../baseDatos');
+const { Capturado } = require('../baseDatos');
 
 const capturarPokemon = async (req, res) => {
   try {
@@ -14,8 +14,8 @@ const capturarPokemon = async (req, res) => {
 // Función para listar todas las capturas
 const listarCapturas = async (req, res) => {
   try {
-    const capturado = await Capturado.findAll(); // Obtenemos todos los Pokémon de la base de datos
-    res.status(200).json({capturado }); // Enviamos los Pokémon como respuesta en formato JSON
+    const capturado = await Capturado.findAll();
+    res.status(200).json({capturado });
   } catch (error) {
     console.error('Error al obtener los Pokémones capturados:', error);
     res.status(500).json({ mensaje: 'Error interno del servidor', resultado: null });
