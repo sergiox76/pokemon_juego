@@ -21,17 +21,17 @@ const registrarPokemon = async (req, res) => {
   }
 };
 
-const listarPokemones = async (req, res) => {
+
+const listarPokemon = async (req, res) => {
   try {
-    const pokemones = await Pokemon.findAll(); 
-    res.status(200).json({ pokemones }); 
+    const pokemones = await Pokemon.findAll();
+    res.status(200).json(pokemones);
   } catch (error) {
-    console.error('Error al obtener los Pokémon:', error);
-    res.status(500).json({ mensaje: 'Error interno del servidor', resultado: null });
+    res.status(500).json({ mensaje: 'Error al listar Pokémon', error });
   }
-}
+};
 
 module.exports = {
-  listarPokemones,
-  registrarPokemon
+    registrarPokemon,
+    listarPokemon
 };

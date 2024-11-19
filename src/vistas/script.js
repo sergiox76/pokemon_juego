@@ -3,30 +3,29 @@ const API_URL = 'http://3.145.30.157:3007/api'; // Base URL para la API
 // Registrar Usuario
 document.getElementById('formUsuario').addEventListener('submit', async (e) => {
   e.preventDefault();
-
   const usuario = {
     cedula: document.getElementById('cedula').value,
     email: document.getElementById('email').value,
     nombre: document.getElementById('nombre').value,
     edad: document.getElementById('edad').value,
   };
+alert(usuario.cedula);
 
   try {
-    const res = await fetch(`${API_URL}/usuario/registrar`, {
+    const res = await fetch(`${API_URL}/usuarios/registrar`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(usuario),
     });
 
-    if (!res.ok) {
-      const error = await res.json();
-      alert(`Error al registrar usuario: ${error.mensaje}`);
-      return;
+    if (res.ok) {
+      alert('Usuario registrado con éxito');
+      // Llama a la función para listar usuarios
+      listarUsuarios();
+      document.getElementById('formUsuario').reset(); // Limpia el formulario
+    } else {
+      alert('Error al registrar usuario');
     }
-
-    alert('Usuario registrado con éxito');
-    listarUsuarios();
-    document.getElementById('formUsuario').reset();
   } catch (error) {
     console.error('Error al registrar usuario:', error);
   }
@@ -35,7 +34,6 @@ document.getElementById('formUsuario').addEventListener('submit', async (e) => {
 // Registrar Pokémon
 document.getElementById('formPokemon').addEventListener('submit', async (e) => {
   e.preventDefault();
-
   const pokemon = {
     nombre: document.getElementById('nombrePokemon').value,
     tipo: document.getElementById('tipo').value,
@@ -49,68 +47,26 @@ document.getElementById('formPokemon').addEventListener('submit', async (e) => {
       body: JSON.stringify(pokemon),
     });
 
-    if (!res.ok) {
-      const error = await res.json();
-      alert(`Error al registrar Pokémon: ${error.mensaje}`);
-      return;
+    if (res.ok) {
+      alert('Pokémon registrado con éxito');
+      // Llama a la función para listar pokémones
+      listarPokemon();
+      document.getElementById('formPokemon').reset(); // Limpia el formulario
+    } else {
+      alert('Error al registrar Pokémon');
     }
-
-    alert('Pokémon registrado con éxito');
-    listarPokemon();
-    document.getElementById('formPokemon').reset();
   } catch (error) {
     console.error('Error al registrar Pokémon:', error);
-  }
-});
-
-// Capturar Pokémon
-document.getElementById('capturarPokemon').addEventListener('click', () => {
-  document.getElementById('capturaForm').style.display = 'block';
-});
-
-document.getElementById('cancelarCaptura').addEventListener('click', () => {
-  document.getElementById('capturaForm').style.display = 'none';
-});
-
-document.getElementById('formCaptura').addEventListener('submit', async (e) => {
-  e.preventDefault();
-
-  const captura = {
-    pokemonId: document.getElementById('pokemon').value,
-    usuarioCedula: document.getElementById('cedulaCaptura').value,
-  };
-
-  try {
-    const res = await fetch(`${API_URL}/captura/capturar`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(captura),
-    });
-
-    if (!res.ok) {
-      const error = await res.json();
-      alert(`Error al capturar Pokémon: ${error.mensaje}`);
-      return;
-    }
-
-    alert('¡Pokémon capturado exitosamente!');
-    listarCapturas();
-    document.getElementById('formCaptura').reset();
-    document.getElementById('capturaForm').style.display = 'none';
-  } catch (error) {
-    console.error('Error al capturar Pokémon:', error);
   }
 });
 
 // Listar Usuarios
 async function listarUsuarios() {
   try {
-    const res = await fetch(`${API_URL}/usuario/listar`);
+    const res = await fetch(`${API_URL}/usuarios/listarusuario`);
     const usuarios = await res.json();
-
     const tabla = document.getElementById('tablaUsuarios').querySelector('tbody');
-    tabla.innerHTML = ''; // Limpiar la tabla
-
+    tabla.innerHTML = ''; // Limpiar tabla antes de llenarla
     usuarios.forEach((usuario) => {
       const fila = `
         <tr>
@@ -130,12 +86,10 @@ async function listarUsuarios() {
 // Listar Pokémon
 async function listarPokemon() {
   try {
-    const res = await fetch(`${API_URL}/pokemon/listar`);
+    const res = await fetch(`${API_URL}/pokemon/listarpokemon`);
     const pokemones = await res.json();
-
     const tabla = document.getElementById('tablaPokemon').querySelector('tbody');
-    tabla.innerHTML = ''; // Limpiar la tabla
-
+    tabla.innerHTML = ''; // Limpiar tabla antes de llenarla
     pokemones.forEach((pokemon) => {
       const fila = `
         <tr>
@@ -151,31 +105,6 @@ async function listarPokemon() {
   }
 }
 
-// Listar Capturas
-async function listarCapturas() {
-  try {
-    const res = await fetch(`${API_URL}/captura/listar`);
-    const capturas = await res.json();
-
-    const tabla = document.getElementById('tablaCapturas').querySelector('tbody');
-    tabla.innerHTML = ''; // Limpiar la tabla
-
-    capturas.forEach((captura) => {
-      const fila = `
-        <tr>
-          <td>${captura.pokemon.nombre}</td>
-          <td>${captura.usuarioCedula}</td>
-          <td>${new Date(captura.createdAt).toLocaleString()}</td>
-        </tr>
-      `;
-      tabla.innerHTML += fila;
-    });
-  } catch (error) {
-    console.error('Error al listar capturas:', error);
-  }
-}
-
-// Inicializar las listas
+// Cargar listas al inicio
 listarUsuarios();
 listarPokemon();
-listarCapturas();

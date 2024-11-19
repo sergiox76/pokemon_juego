@@ -8,21 +8,17 @@ const capturarPokemon = async (req, res) => {
     res.status(400).json({ mensaje: error.message,resultado:null });
   }
 };
-const Usuario = require('../modelos/usuario'); // Modelo de Usuario
-const Pokemon = require('../modelos/pokemon'); // Modelo de Pokémon
 
-// Función para listar todas las capturas
 const listarCapturas = async (req, res) => {
   try {
-    const capturado = await Capturado.findAll();
-    res.status(200).json({capturado });
+    const capturas = await Capturado.findAll();
+    res.status(200).json(capturas);
   } catch (error) {
-    console.error('Error al obtener los Pokémones capturados:', error);
-    res.status(500).json({ mensaje: 'Error interno del servidor', resultado: null });
+    res.status(500).json({ mensaje: 'Error al listar capturas', error });
   }
-}
+};
 
 module.exports = {
-  listarCapturas,
-  capturarPokemon
+    capturarPokemon,
+    listarCapturas
 };
